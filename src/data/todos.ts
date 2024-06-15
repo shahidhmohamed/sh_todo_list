@@ -5,7 +5,7 @@ export const dummyData: Todo[] = [
 
     {
         id:1,
-        title: "Shehana ඔබ හරිම හුරුබුහුටියි 😉",
+        title: "Hello 😉",
         completed:false,
     },
 ];
