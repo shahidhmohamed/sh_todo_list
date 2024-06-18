@@ -1,19 +1,27 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 interface AddTodoFormProps {
-  onSubmit: (title: string) => void;
+  onSubmit: (newTodo: Todo) => void;
 }
 
 export default function AddTodoForm({ onSubmit }: AddTodoFormProps) {
   const [input, setInput] = useState("");
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     if (!input.trim()) return;
 
-    onSubmit(input);
-    setInput("");
+    try {
+      const response = await axios.post("http://localhost:5000/todos", {
+        title: input,
+      });
+      onSubmit(response.data);
+      setInput("");
+    } catch (error) {
+      console.error("There was an error creating the todo!", error);
+    }
   }
 
   return (

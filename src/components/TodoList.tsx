@@ -1,10 +1,11 @@
+import React from "react";
 import { Todo } from "../types/todo";
 import TodoItem from "./TodoItem";
 
 interface TodoListProps {
   todos: Todo[];
-  onCompletedChange: (id: number, completed: boolean) => void;
-  onDelete: (id: number) => void;
+  onCompletedChange: (id: string, completed: boolean) => void;
+  onDelete: (id: string) => void;
 }
 
 export default function TodoList({
@@ -14,9 +15,8 @@ export default function TodoList({
 }: TodoListProps) {
   const todoSorted = todos.sort((a, b) => {
     if (a.completed === b.completed) {
-      return b.id - a.id;
+      return b._id > a._id ? 1 : -1;
     }
-
     return a.completed ? 1 : -1;
   });
 
@@ -25,7 +25,7 @@ export default function TodoList({
       <div className="space-y-2">
         {todoSorted.map((todo) => (
           <TodoItem
-            key={todo.id}
+            key={todo._id}
             todo={todo}
             onCompletedChange={onCompletedChange}
             onDelete={onDelete}
