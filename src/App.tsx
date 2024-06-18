@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import apiClient from "./axiosConfig";
+import { useEffect, useState } from "react";
+import axios from "axios";
 import AddTodoForm from "./components/AddTodoForm";
 import TodoList from "./components/TodoList";
 import { Todo } from "./types/todo";
@@ -10,7 +10,7 @@ export default function App() {
   useEffect(() => {
     async function fetchTodos() {
       try {
-        const response = await apiClient.get("/todos");
+        const response = await axios.get("http://localhost:5000/todos");
         setTodos(response.data);
       } catch (error) {
         console.error("There was an error fetching the todos!", error);
@@ -25,7 +25,7 @@ export default function App() {
 
   const handleCompletedChange = async (id: string, completed: boolean) => {
     try {
-      const response = await apiClient.patch(`/todos/${id}`, {
+      const response = await axios.patch(`http://localhost:5000/todos/${id}`, {
         completed,
       });
       setTodos(todos.map((todo) => (todo._id === id ? response.data : todo)));
@@ -36,7 +36,7 @@ export default function App() {
 
   const handleDelete = async (id: string) => {
     try {
-      await apiClient.delete(`/todos/${id}`);
+      await axios.delete(`http://localhost:5000/todos/${id}`);
       setTodos(todos.filter((todo) => todo._id !== id));
     } catch (error) {
       console.error("There was an error deleting the todo!", error);

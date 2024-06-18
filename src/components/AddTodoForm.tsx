@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import apiClient from "../axiosConfig";
-import { Todo } from "../types/todo";
+import axios from "axios";
+import { Todo } from "../types/todo"; // Adjust the import path based on your project structure
 
 interface AddTodoFormProps {
   onSubmit: (newTodo: Todo) => void;
@@ -15,7 +15,7 @@ export default function AddTodoForm({ onSubmit }: AddTodoFormProps) {
     if (!input.trim()) return;
 
     try {
-      const response = await apiClient.post("/todos", {
+      const response = await axios.post("http://localhost:5000/todos", {
         title: input,
       });
       onSubmit(response.data);
