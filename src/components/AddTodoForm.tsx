@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Todo } from "../types/todo"; // Adjust the import path based on your project structure
 
 interface AddTodoFormProps {
   onSubmit: (newTodo: Todo) => void;
