@@ -1,3 +1,4 @@
+import React from "react";
 import { Trash2 } from "lucide-react";
 import { Todo } from "../types/todo";
 
